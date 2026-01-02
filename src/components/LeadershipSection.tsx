@@ -1,4 +1,4 @@
-import { Heart, Award, Cpu, Users } from "lucide-react";
+import { Heart, Award, Cpu, Users, ExternalLink } from "lucide-react";
 
 const achievements = [
   {
@@ -49,7 +49,15 @@ const LeadershipSection = () => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold">President</h3>
-                  <p className="text-primary font-medium">AI Academy Corp.</p>
+                  <a 
+                    href="https://aiacademi.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary font-medium hover:underline inline-flex items-center gap-1"
+                  >
+                    AI Academy Corp.
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
                 </div>
               </div>
               
