@@ -1,4 +1,5 @@
 import { Heart, Award, Cpu, Users, ExternalLink } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 const achievements = [
   {
@@ -22,11 +23,31 @@ const achievements = [
 ];
 
 const LeadershipSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="leadership" className="py-24 relative">
+    <section id="leadership" className="py-24 relative" ref={sectionRef}>
       <div className="container px-6">
         {/* Section header */}
-        <div className="mb-16 text-center">
+        <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Leadership & <span className="text-gradient">Impact</span>
           </h2>
@@ -36,7 +57,7 @@ const LeadershipSection = () => {
         </div>
 
         {/* Main leadership card */}
-        <div className="max-w-4xl mx-auto mb-12">
+        <div className={`max-w-4xl mx-auto mb-12 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="glass-card rounded-xl p-8 md:p-12 relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
@@ -77,7 +98,8 @@ const LeadershipSection = () => {
           {achievements.map((achievement, index) => (
             <div
               key={achievement.label}
-              className="glass-card rounded-xl p-6 text-center hover-lift group"
+              className={`glass-card rounded-xl p-6 text-center hover-lift group transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${200 + index * 100}ms` }}
             >
               <div className="w-12 h-12 rounded-lg bg-secondary mx-auto mb-4 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <achievement.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />

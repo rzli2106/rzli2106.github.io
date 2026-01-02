@@ -1,4 +1,5 @@
 import { Brain, Zap, Music, Target } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 const interests = [
   {
@@ -24,14 +25,34 @@ const interests = [
 ];
 
 const InterestsSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="interests" className="py-24 relative">
+    <section id="interests" className="py-24 relative" ref={sectionRef}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/5 to-transparent" />
       
       <div className="container px-6 relative z-10">
         {/* Section header */}
-        <div className="mb-16 text-center">
+        <div className={`mb-16 text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Interests & <span className="text-gradient">Passions</span>
           </h2>
@@ -45,7 +66,8 @@ const InterestsSection = () => {
           {interests.map((interest, index) => (
             <div
               key={interest.title}
-              className="glass-card rounded-xl p-6 text-center hover-lift group cursor-default"
+              className={`glass-card rounded-xl p-6 text-center hover-lift group cursor-default transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${100 + index * 100}ms` }}
             >
               <div className="w-16 h-16 rounded-2xl bg-secondary mx-auto mb-4 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
                 <interest.icon className="h-8 w-8 text-muted-foreground group-hover:text-primary transition-colors" />
