@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Mail, Download } from "lucide-react";
+import { ArrowDown, Mail, ExternalLink } from "lucide-react";
 import headshot from "@/assets/headshot.png";
 
 const HeroSection = () => {
@@ -65,9 +65,9 @@ const HeroSection = () => {
               Contact Me
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
-              <a href="/Richard_Z._Li_Resume.pdf" download>
-                <Download className="mr-2 h-4 w-4" />
-                Download CV
+              <a href="https://docs.google.com/document/d/1FTOb8F-BGoUU24d6MVE7R69Vs1au5v2z24F6UgpoaZY/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Access CV
               </a>
             </Button>
           </div>

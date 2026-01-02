@@ -17,7 +17,7 @@ const Footer = () => {
             </p>
             
             {/* Social links */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="https://www.linkedin.com/in/richard-li-118518322/"
                 target="_blank"
@@ -29,12 +29,10 @@ const Footer = () => {
                   <ExternalLink className="h-3 w-3 opacity-50" />
                 </Button>
               </a>
-              <a href="mailto:rzli2106@gmail.com">
-                <Button variant="hero" size="lg" className="gap-2">
-                  <Mail className="h-5 w-5" />
-                  Email Me
-                </Button>
-              </a>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/50 border border-border/50">
+                <Mail className="h-5 w-5 text-primary" />
+                <span className="text-foreground font-medium">rzli2106@gmail.com</span>
+              </div>
             </div>
           </div>
 
